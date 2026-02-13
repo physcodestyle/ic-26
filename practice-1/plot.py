@@ -1,6 +1,6 @@
 def print_plot_1d(function, x_min, x_max, point_count):
     dx = (x_max - x_min) / point_count
-    for i in range(point_count):
+    for i in range(point_count + 1):
         x = x_min + dx * i
         y = function(x)
         point = ' ' * int(y) + '·'
