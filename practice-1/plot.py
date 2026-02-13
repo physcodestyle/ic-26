@@ -7,13 +7,14 @@ def print_plot_1d(function, x_min, x_max, point_count):
         print(point)
 
 
-def f(x):
-    return x * x
+def func_factory(input_string):
+    def func(x):
+        return eval(input_string)
+    return func
 
 
-min = 0
-max = 10
-points = 10
-
-
-print_plot_1d(f, min, max, points)
+input_string = input("Введите функцию: ")
+min = int(input("Введите нижний предел области определения: "))
+max = int(input("Введите верхний предел области определения: "))
+points = int(input("Введите количество точек в графике: "))
+print_plot_1d(func_factory(input_string), min, max, points)
