@@ -1,22 +1,26 @@
 import sys
 
 
-def import_csv_data(filename, delimiter):
+def import_csv_data(filename: str, delimiter: str):
     try:
         with open(filename, "r") as f:
             global_max_value = -sys.float_info.max
             global_min_value = sys.float_info.max
             strings = f.read().split("\n")
             keys = strings[0].split(delimiter)
+            cols = []
             max_cell_length = 0
             for key in keys:
                 length = len(key)
+                cols.append([])
                 if length > max_cell_length:
                     max_cell_length = length
             rows = []
             key_values = []
             for i in range(1, len(strings)):
                 cells = strings[i].split(delimiter)
+                for cell_index in range(len(cells)):
+                    cols[cell_index].append(float(cells[cell_index]))
                 rows.append(cells)
                 key_value_dictionary = {}
                 for j in range(len(cells)):
@@ -32,6 +36,7 @@ def import_csv_data(filename, delimiter):
             return {
                 "keys": keys,
                 "rows": rows,
+                "cols": cols,
                 "dict": key_values,
                 "cell_width": max_cell_length,
                 "extremum": {
@@ -42,3 +47,4 @@ def import_csv_data(filename, delimiter):
     except FileNotFoundError:
         print(f"Error: the file '{filename}' was not found.")
         return None
+

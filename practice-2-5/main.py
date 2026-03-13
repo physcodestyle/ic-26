@@ -5,9 +5,9 @@ from modules.print_data import print_table, print_plot, PlotType
 
 def run():
     data_file = sys.argv[1]
-    imported_data = import_csv_data(data_file, ',')
-    print_table(data=imported_data)
-    print_plot(data=imported_data, plot_type=PlotType.BAR_TYPE)
+    data = import_csv_data(filename=data_file, delimiter=",")
+    print_plot(data=data, plot_type=PlotType.GRAPH_TYPE)
 
 
-run()
+if __name__ == '__main__':
+    run()

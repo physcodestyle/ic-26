@@ -1,11 +1,17 @@
 from enum import Enum
+import sys
 
 
 class PlotType(Enum):
     BAR_TYPE = 1
+    GRAPH_TYPE = 2
 
 
 MARKERS = ( "░", "▒", "▓", "█" )
+EMPTY_POINT = "·"
+POINTS = ("①", "②", "③")
+WIDTH = 20
+HEIGHT = 25
 
 
 def print_table(data):
@@ -49,9 +55,49 @@ def print_bar_plot(data):
         print("".join(row))
 
 
+def print_graph_plot(data):
+    x_min = min(data["cols"][0])
+    x_max = max(data["cols"][0])
+    y_min = sys.float_info.max
+    y_max = -sys.float_info.max
+
+    plot = []
+    for _ in range(HEIGHT):
+        row = []
+        for _ in range(WIDTH):
+            row.append(f" {EMPTY_POINT} ")
+        plot.append(row)            
+
+    for col_index in range(1, len(data["cols"])):
+        if min(data["cols"][col_index]) < y_min:
+            y_min = min(data["cols"][col_index])
+        if max(data["cols"][col_index]) > y_max:
+            y_max = max(data["cols"][col_index])
+
+    for col_index in range(1, len(data["cols"])):
+        for row_index in range(len(data["cols"][0])):
+            x = round((data["cols"][0][row_index] - x_min) * (WIDTH - 1) / (x_max - x_min))
+            y = round((data["cols"][col_index][row_index] - y_min) * (HEIGHT - 1) / (y_max - y_min))
+            plot[y][x] = f" {POINTS[col_index - 1]} "
+    
+    plot.reverse()
+    for row in plot:
+        print("".join(row))
+
+    # point_count = len(data["rows"])
+    # dx = (x_max - x_min) / point_count
+    # for i in range(point_count + 1):
+    #     x = x_min + dx * i
+    #     y = function(x)
+    #     point = ' ' * int(y) + '·'
+    #     print(point)
+
+
 def print_plot(data, plot_type: PlotType):
     if plot_type == PlotType.BAR_TYPE:
         print_bar_plot(data)
+    elif plot_type == PlotType.GRAPH_TYPE:
+        print_graph_plot(data)
     else:
         print(f"Error: chosen plot type '{plot_type}' was not found.")
         
