@@ -9,7 +9,7 @@ class PlotType(Enum):
 
 MARKERS = ( "░", "▒", "▓", "█" )
 EMPTY_POINT = "·"
-POINTS = ("①", "②", "③")
+POINTS = ("⏺", "⊕", "⊗", "⎊", "⍟", "⊛")
 WIDTH = 20
 HEIGHT = 25
 
