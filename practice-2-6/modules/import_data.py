@@ -47,4 +47,3 @@ def import_csv_data(filename: str, delimiter: str):
     except FileNotFoundError:
         print(f"Error: the file '{filename}' was not found.")
         return None
-
