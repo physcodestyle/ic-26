@@ -9,7 +9,7 @@ class IntFuncType(Enum):
     Polynomial1 = 1
 
 
-def interpolation_1d(x_list, y_list, int_func_type = IntFuncType.Polynomial1):
+def interpolation(x_list, y_list, int_func_type = IntFuncType.Polynomial1):
     if int_func_type == IntFuncType.Polynomial1:
         x_min = min(x_list)
         x_max = max(x_list)
