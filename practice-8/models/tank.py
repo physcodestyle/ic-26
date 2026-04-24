@@ -7,6 +7,7 @@ from models.shot import Shot
 
 
 class Tank:
+    model = "BaseModel"
     def __init__(
         self,
         x: int,
@@ -33,6 +34,16 @@ class Tank:
 
     def is_life_finished(self):
         return self.life <= 0
+    
+
+    def decrease_ammo(self):
+        if not self.is_ammo_finished():
+            self.ammo -= 1
+    
+
+    def decrease_life(self):
+        if not self.is_life_finished():
+            self.life -= 1
 
     
     def next(self, origin: Coords, targets: List[Tuple[Coords, bool]], shots: List[Coords]) -> Tuple[Direction, Shot]:
@@ -43,3 +54,27 @@ class Tank:
         :return: Tuple[Direction, Shot]
         """
         return (self.direction, None)
+    
+
+    def show(self) -> str:
+        return "B"
+
+
+class FirstTank(Tank):
+    model = "FirstModel"
+    def next(self, origin: Coords, targets: List[Tuple[Coords, bool]], shots: List[Coords]) -> Tuple[Direction, Shot]:
+        return (self.direction, None)
+    
+
+    def show(self) -> str:
+        return "F"
+
+
+class SecondTank(Tank):
+    model = "SecondModel"
+    def next(self, origin: Coords, targets: List[Tuple[Coords, bool]], shots: List[Coords]) -> Tuple[Direction, Shot]:
+        return (self.direction, None)
+    
+
+    def show(self) -> str:
+        return "S"

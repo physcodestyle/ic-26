@@ -1,6 +1,11 @@
+from typing import List, Tuple
 from models.size import Size
 from models.coords import Coords
 from models.direction import Direction
+from models.tank import Tank
+from models.shot import Shot
+from random import random
+from math import floor
 
 
 class Field:
@@ -30,3 +35,26 @@ class Field:
         elif direction == Direction.Down:
             coords.y += 1
         return coords
+    
+
+    def show(self, tanks: List[Tank], shots: List[Shot]) -> List[List[str]]:
+        map = []
+        for _ in range(self.size.height):
+            row = ["·" for _ in range(self.size.width)]
+            map.append(row)
+        for tank in tanks:
+            map[tank.coords.y - 1][tank.coords.x - 1] = tank.show()
+        for shot in shots:
+            map[shot.coords.y - 1][shot.coords.x - 1] = shot.show()
+        return map
+        
+
+    def get_random_player_params(self) -> Tuple[Coords, Direction]:
+        x = floor(self.size.width * random()) + 1
+        if x > self.size.width:
+            x = self.size.width
+        y = floor(self.size.height * random()) + 1
+        if y > self.size.height:
+            y = self.size.height
+        d = floor(4 * random())
+        return (Coords(x=x, y=y), Direction(d))
